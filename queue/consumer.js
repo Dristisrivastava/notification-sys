@@ -1,11 +1,9 @@
 const amqp = require('amqplib');
 const { sendNotificationWithRetry } = require('./notificationService');
 
-// User data map with name and email
 const users = {
-  "Alice": { name: "Alice", email: "alice@example.com" },
-  "Bob": { name: "Bob", email: "bob@example.com" },
-  // Add more users here if needed
+  "Dristi": { name: "Dristi", email: "Dristi@gmail.com" },
+  "abc": { name: "abc", email: "abc@gmail.com" },
 };
 
 async function startConsumer() {
@@ -24,15 +22,13 @@ async function startConsumer() {
         const data = JSON.parse(msg.content.toString());
         console.log("🛎 Message received:", data);
 
-        // Lookup user info based on userId
         const userInfo = users[data.userId];
         if (!userInfo) {
           console.error(`❌ User not found for userId: ${data.userId}`);
-          channel.ack(msg); // Acknowledge to remove from queue
+          channel.ack(msg); 
           return;
         }
 
-        // Compose full notification object with user info + original data
         const notification = {
           name: userInfo.name,
           email: userInfo.email,

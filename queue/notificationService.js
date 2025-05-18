@@ -1,15 +1,11 @@
-// notificationService.js
 
 async function sendEmail(notification) {
-    // Simulate sending email, replace with actual email logic
     const { email, name, message } = notification;
   
     if (!email) {
       throw new Error("Email is missing");
     }
-  
-    // For demo, randomly fail to simulate retry
-    const success = Math.random() > 0.3; // 70% chance of success
+      const success = Math.random() > 0.3;
   
     if (!success) {
       throw new Error("Temporary email service failure");
@@ -33,7 +29,6 @@ async function sendEmail(notification) {
           console.error("❌ Max retry attempts reached. Giving up.");
           return;
         }
-        // Wait before retrying (optional)
         await new Promise(res => setTimeout(res, 1000));
       }
     }
